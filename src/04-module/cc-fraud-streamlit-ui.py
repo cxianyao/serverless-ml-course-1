@@ -40,10 +40,10 @@ def retrieve_dataset(fv, start_date, end_date):
     return batch_data
 
 
-@st.cache(suppress_st_warning=True, allow_output_mutation=True)
-def get_feature_view():
-    fv = fs.get_feature_view("cc_trans_fraud", 1)
-    return fv
+#@st.cache(suppress_st_warning=True, allow_output_mutation=True)
+#def get_feature_view():
+#    fv = fs.get_feature_view("cc_trans_fraud", 1)
+#    return fv
 
 
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
@@ -57,7 +57,7 @@ def explore_data(batch_data):
     st.write(36 * "-")
     print_fancy_header('\n👁 Data Exploration...')
     labels = ["Suspected of Fraud", "Not Suspected of Fraud"]
-    unique, counts = np.unique(batch_data.fraud.values, return_counts=True)
+    unique, counts = np.unique(batch_data['Fraud'].values, return_counts=True)
     values = counts.tolist()
 
     def plot_pie(values, labels):
@@ -92,8 +92,9 @@ progress_bar.progress(40)
 
 st.write(36 * "-")
 print_fancy_header('\n✨ Fetch batch data and predict')
-fv = get_feature_view()
-
+#fv = get_feature_view()
+fv = fs.get_feature_view("cc_trans_fraud", 1) #
+fv.init_batch_scoring(training_dataset_version=1) #
 
 if st.button('📊 Make a prediction'):
     batch_data = retrieve_dataset(fv, start_date, end_date)
@@ -102,7 +103,8 @@ if st.button('📊 Make a prediction'):
     predictions = model.predict(batch_data)
     predictions = transform_preds(predictions)
     batch_data_to_explore = batch_data.copy()
-    batch_data_to_explore['fraud'] = predictions
+    batch_data_to_explore['Fraud'] = predictions
+    haha = batch_data_to_explore.columns
     explore_data(batch_data_to_explore)
 
 st.button("Re-run")
