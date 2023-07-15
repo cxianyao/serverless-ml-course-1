@@ -1,7 +1,7 @@
 ![readme header](/assets//images/card_horizontal.jpg)
 
-- own notes:
-   - 7/16:scripting.sh will only be run through workflow (if activated / automated ), else is hibernated for each different modules.
+- Self Notes:
+   - 7/16: scripting.sh will only be run through workflow (if activated / automated ), else is hibernated for each different modules.
 
 
 <a href="https://join.slack.com/t/featurestoreorg/shared_invite/zt-ssh8dec1-IsvwLdTsRMssjT4~Ru2RKg" alt="slack"> <img src="https://img.shields.io/badge/Join Slack-blue.svg?logo=slack" /></a> 
